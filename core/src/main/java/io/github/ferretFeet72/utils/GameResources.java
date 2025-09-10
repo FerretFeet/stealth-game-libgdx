@@ -1,0 +1,31 @@
+package io.github.ferretFeet72.utils;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.Disposable;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
+
+public class GameResources {
+    public static OrthographicCamera camera;
+    public static Viewport viewport;
+    public static SpriteBatch batch;
+    public static AssetManager assets;
+
+    public static void init() {
+        camera = new OrthographicCamera();
+        viewport = new StretchViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        batch = new SpriteBatch();
+        assets = new AssetManager();
+    }
+
+
+    public static void dispose() {
+        batch.dispose();
+        assets.dispose();
+    }
+}
+
