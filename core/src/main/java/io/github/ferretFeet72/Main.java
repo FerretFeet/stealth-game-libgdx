@@ -29,13 +29,6 @@ public class Main extends Game {
         GameResources.init();
         screenManager.init(this);
 
-
-//        Generate fonts
-//        fontManager fontManager = new fontManager();
-//        font = fontManager.getFont();
-//        fontManager.dispose();
-
-//        Set screen
         screenManager.showScreen(ScreenEnum.MAIN_MENU);
 
 
