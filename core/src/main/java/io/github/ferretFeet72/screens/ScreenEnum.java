@@ -1,7 +1,8 @@
 package io.github.ferretFeet72.screens;
 
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import io.github.ferretFeet72.screens.game.GameScreen;
+import io.github.ferretFeet72.screens.mainmenu.MainMenuScreen;
 
 public enum ScreenEnum {
     MAIN_MENU {

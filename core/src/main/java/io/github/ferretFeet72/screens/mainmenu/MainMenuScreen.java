@@ -1,28 +1,25 @@
-package io.github.ferretFeet72.screens;
+package io.github.ferretFeet72.screens.mainmenu;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
+import io.github.ferretFeet72.screens.BaseScreen;
 
 import java.awt.*;
 
-public class LevelSelectScreen extends BaseScreen {
-    public LevelSelectScreen() {
+public class MainMenuScreen extends BaseScreen {
+    public MainMenuScreen() {
         super(new ScreenViewport());
     }
-
     @Override
     public void show() {
-
+        Gdx.input.setInputProcessor(new BaseInputProcessor());
     }
 
     @Override
     public void render(float v) {
-        Gdx.gl.glClearColor(Color.BLUE.getRed(), Color.BLUE.getGreen(), Color.BLUE.getBlue(), Color.BLUE.getAlpha());
+        Gdx.gl.glClearColor(Color.YELLOW.getRed(), Color.YELLOW.getGreen(), Color.YELLOW.getBlue(), Color.YELLOW.getAlpha());
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
     }
 
     @Override

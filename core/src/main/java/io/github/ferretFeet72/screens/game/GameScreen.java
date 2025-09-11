@@ -1,18 +1,18 @@
-package io.github.ferretFeet72.screens;
+package io.github.ferretFeet72.screens.game;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import io.github.ferretFeet72.screens.BaseScreen;
 
 import java.awt.*;
 
-public class MainMenuScreen extends BaseScreen {
-    public MainMenuScreen() {
+public class GameScreen extends BaseScreen {
+
+    public GameScreen() {
         super(new ScreenViewport());
     }
+
     @Override
     public void show() {
 
@@ -20,7 +20,7 @@ public class MainMenuScreen extends BaseScreen {
 
     @Override
     public void render(float v) {
-        Gdx.gl.glClearColor(Color.YELLOW.getRed(), Color.YELLOW.getGreen(), Color.YELLOW.getBlue(), Color.YELLOW.getAlpha());
+        Gdx.gl.glClearColor(Color.ORANGE.getRed(), Color.ORANGE.getGreen(), Color.ORANGE.getBlue(), Color.ORANGE.getAlpha());
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     }
 
