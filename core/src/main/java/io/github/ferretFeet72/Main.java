@@ -1,11 +1,14 @@
 package io.github.ferretFeet72;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -22,12 +25,14 @@ public class Main extends Game {
     private OrthographicCamera camera;
     private Viewport viewport;
 
-    private Skin skin;
+
     @Override
     public void create() {
 //        Initialize resources
         GameResources.init();
         screenManager.init(this);
+
+
 
         screenManager.showScreen(ScreenEnum.MAIN_MENU);
 
