@@ -20,7 +20,7 @@ public class GameScreen extends BaseScreen {
 
     @Override
     public void render(float v) {
-        Gdx.gl.glClearColor(Color.ORANGE.getRed(), Color.ORANGE.getGreen(), Color.ORANGE.getBlue(), Color.ORANGE.getAlpha());
+        Gdx.gl.glClearColor(Color.GREEN.getRed(), Color.GREEN.getGreen(), Color.GREEN.getBlue(), Color.GREEN.getAlpha());
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
     }
 
