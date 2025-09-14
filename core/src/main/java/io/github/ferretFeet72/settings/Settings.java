@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonValue;
+import com.badlogic.gdx.utils.JsonWriter;
+import io.github.ferretFeet72.utils.GameResources;
 
 
 public class Settings {
@@ -43,9 +45,7 @@ public class Settings {
 
         public static class Controls {}
 
-//        =======================
-//        --- Read/Write to File --
-//        =======================
+
 
 //        public static IActiveSettings load() {
 //            /** Load settings from JSON, or return defaults if file missing */
@@ -106,6 +106,23 @@ public class Settings {
             this.video = video;
         }
 }
+
+//        =======================
+//        --- Read/Write to File --
+//        =======================
+
+    public static void saveSettings(Settings.Active settings) {
+        FileHandle file = Gdx.files.local(GameResources.settingsLoc);
+        Json json = new Json();
+        json.setOutputType(JsonWriter.OutputType.json);  // Force standard JSON with quotes
+        String jsonSettings = json.prettyPrint(settings);
+        file.writeString(jsonSettings, false);
+
+    }
+//
+//    public static Settings.Active applySettings(Settings.Active settings) {
+//
+//    }
 
     public static class IAvailSettings {
 

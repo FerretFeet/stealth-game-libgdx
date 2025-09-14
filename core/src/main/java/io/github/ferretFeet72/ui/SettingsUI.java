@@ -88,6 +88,7 @@ public class SettingsUI {
         Label resolutionLabel = new Label("Resolution", skin, "white");
         String activeResolutionString = activeSettings.getVideo().getResolution().width + "x" + activeSettings.getVideo().getResolution().height;
         SelectBox<String> resolutionBox = getStringSelectBox(skin, availResolutions, activeResolutionString);
+
         resolutionBox.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent changeEvent, Actor actor) {
@@ -98,8 +99,9 @@ public class SettingsUI {
 
                 Gdx.app.postRunnable(() -> {
                     GameResources.viewport.update(width, height, true);
-//                    Gdx.graphics.setWindowedMode(width, height);
-
+                    if (!activeSettings.getVideo().fullscreenEnabled) {
+                        Gdx.graphics.setWindowedMode(width, height);
+                    }
                     saveResolution(width, height);
                 });
 
@@ -150,34 +152,32 @@ public class SettingsUI {
     private void saveVolume(float volume) {
         activeSettings.getAudio().masterVolume = volume;
 //        activeSettings.save();
-        saveSettings();
+        Settings.saveSettings(this.activeSettings);
     }
 
     private void saveResolution(int width, int height) {
         activeSettings.getVideo().getResolution().width = width;
         activeSettings.getVideo().getResolution().height = height;
 //        activeSettings.save();
+        Settings.saveSettings(this.activeSettings);
+
     }
 
     private void saveFullScreen(boolean fullScreen) {
         activeSettings.getVideo().fullscreenEnabled = fullScreen;
 //        activeSettings.save();
-    }
-
-
-    private void saveSettings() {
-        FileHandle file = Gdx.files.local(GameResources.settingsLoc);
-        Json json = new Json();
-        String jsonSettings = json.prettyPrint(this.activeSettings);
-        if (!file.exists()) {
-
-        }
-        else {}
-        System.out.println("Json Settings" + jsonSettings);
-        System.out.println(Gdx.files.getLocalStoragePath() + "local storage");
-        file.writeString(jsonSettings, false);
+        Settings.saveSettings(this.activeSettings);
 
     }
+
+
+//    private void saveSettings(Settings.Active settings) {
+//        FileHandle file = Gdx.files.local(GameResources.settingsLoc);
+//        Json json = new Json();
+//        String jsonSettings = json.prettyPrint(settings);
+//        file.writeString(jsonSettings, false);
+//
+//    }
 
 //    Load Data
 //    public void loadGameSettings() {

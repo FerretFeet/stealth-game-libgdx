@@ -4,7 +4,7 @@
       "width": 800,
       "height": 600
     },
-    "fullscreenEnabled": true
+    "fullscreenEnabled": false
   },
   "audio": {
     "masterVolume": 0.8

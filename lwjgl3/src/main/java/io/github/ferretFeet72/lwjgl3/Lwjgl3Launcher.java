@@ -5,7 +5,20 @@ import com.badlogic.gdx.Graphics;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
+import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.utils.Json;
+import com.badlogic.gdx.utils.JsonReader;
+import com.badlogic.gdx.utils.JsonValue;
 import io.github.ferretFeet72.Main;
+import io.github.ferretFeet72.settings.Settings;
+import io.github.ferretFeet72.utils.GameResources;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 /** Launches the desktop (LWJGL3) application. */
 public class Lwjgl3Launcher {
@@ -21,6 +34,27 @@ public class Lwjgl3Launcher {
     private static Lwjgl3ApplicationConfiguration getDefaultConfiguration() {
         Lwjgl3ApplicationConfiguration configuration = new Lwjgl3ApplicationConfiguration();
         configuration.setTitle("SpaceColony");
+        int width = 800, height = 600;
+        boolean fullscreen;
+
+        String settings = "";
+        try {
+            settings = Files.readString(Path.of(GameResources.settingsLoc));
+            System.out.println("Content " + settings);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        if (!settings.isEmpty()) {
+//            Fallback
+        }
+        Json json = new Json();
+        Settings.Active activeSettings = json.fromJson(Settings.Active.class, settings);
+
+        width = activeSettings.getVideo().getResolution().width;
+        height = activeSettings.getVideo().getResolution().height;
+
+
+
         //// Vsync limits the frames per second to what your hardware can display, and helps eliminate
         //// screen tearing. This setting doesn't always work on Linux, so the line after is a safeguard.
         configuration.useVsync(true);
@@ -33,7 +67,7 @@ public class Lwjgl3Launcher {
 
 
 
-        configuration.setWindowedMode(640, 480);
+        configuration.setWindowedMode(width, height);
         //// You can change these files; they are in lwjgl3/src/main/resources/ .
         //// They can also be loaded from the root of assets/ .
         configuration.setWindowIcon("libgdx128.png", "libgdx64.png", "libgdx32.png", "libgdx16.png");
