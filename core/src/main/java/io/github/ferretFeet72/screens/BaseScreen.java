@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-
+import io.github.ferretFeet72.utils.GameResources;
 
 
 public class BaseScreen implements Screen {
@@ -15,6 +15,7 @@ public class BaseScreen implements Screen {
 
     public BaseScreen(Viewport viewport) {
         this.stage = new Stage(viewport);
+        GameResources.viewport = viewport;
     }
 
     @Override
@@ -38,6 +39,7 @@ public class BaseScreen implements Screen {
     @Override
     public void resize(int w, int h) {
 //        getViewport().update(w, h, true);
+        GameResources.viewport.update(w, h, true);
     }
 
     @Override

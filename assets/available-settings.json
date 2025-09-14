@@ -1,0 +1,17 @@
+{
+  "video": {
+    "resolutions": [
+      "800x600",
+      "1280x720",
+      "1920x1080"
+    ],
+    "fullscreenEnabled": false
+  },
+  "audio": {
+    "masterVolumeRange": [0, 1]
+  },
+  "controls": {
+
+  }
+
+}

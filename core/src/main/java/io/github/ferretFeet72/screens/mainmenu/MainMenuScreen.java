@@ -41,10 +41,10 @@ public class MainMenuScreen extends BaseScreen implements MainMenuUI.MainMenuLis
 //
 //    }
 
-    @Override
-    public void resize(int i, int i1) {
-
-    }
+//    @Override
+//    public void resize(int i, int i1) {
+//
+//    }
 
     @Override
     public void pause() {
