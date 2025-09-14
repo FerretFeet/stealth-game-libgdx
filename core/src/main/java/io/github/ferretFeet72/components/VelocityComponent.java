@@ -3,7 +3,7 @@ package io.github.ferretFeet72.components;
 import com.badlogic.ashley.core.Component;
 
 public class VelocityComponent implements Component {
-    float dx, dy, dz;
+    public float dx, dy, dz;
     public VelocityComponent(float dx, float dy, float dz) {
         this.dx = dx;
         this.dy = dy;

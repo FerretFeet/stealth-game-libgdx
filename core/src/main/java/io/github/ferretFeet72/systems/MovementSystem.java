@@ -1,0 +1,28 @@
+package io.github.ferretFeet72.systems;
+
+import com.badlogic.ashley.core.ComponentMapper;
+import com.badlogic.ashley.core.Entity;
+import com.badlogic.ashley.core.Family;
+import com.badlogic.ashley.systems.IteratingSystem;
+import io.github.ferretFeet72.components.PositionComponent;
+import io.github.ferretFeet72.components.VelocityComponent;
+
+public class MovementSystem extends IteratingSystem {
+    private final ComponentMapper<PositionComponent> pm = ComponentMapper.getFor(PositionComponent.class);
+    private final ComponentMapper<VelocityComponent> tm = ComponentMapper.getFor(VelocityComponent.class);
+
+    public MovementSystem() {
+        super(Family.all(PositionComponent.class, VelocityComponent.class).get());
+    }
+
+
+
+
+    @Override
+    protected void processEntity(Entity entity, float v) {
+        PositionComponent pos = pm.get(entity);
+        VelocityComponent vel = tm.get(entity);
+        pos.x += vel.dx;
+        pos.y += vel.dy;
+    }
+}

@@ -8,6 +8,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import io.github.ferretFeet72.components.PositionComponent;
 import io.github.ferretFeet72.entities.PlayerFactory;
 import io.github.ferretFeet72.screens.BaseScreen;
+import io.github.ferretFeet72.systems.MovementSystem;
 import io.github.ferretFeet72.systems.RenderSystem;
 import io.github.ferretFeet72.utils.GameResources;
 
@@ -19,6 +20,7 @@ public class GameScreen extends BaseScreen {
     public GameScreen() {
         super(new ScreenViewport());
         engine.addSystem(new RenderSystem());
+        engine.addSystem(new MovementSystem());
     }
 
 
