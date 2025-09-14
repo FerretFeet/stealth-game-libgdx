@@ -18,10 +18,14 @@ public class SettingsUI {
     private Settings.Active activeSettings;
 
     public SettingsUI(Skin skin) {
+        this.activeSettings = Settings.getSettings();
         this.table = new Table();
+//        this.table.pack();
+        this.table.setSize(Gdx.graphics.getWidth() * 0.5f, Gdx.graphics.getHeight() * 0.5f);
 
-        this.table.setSize(Gdx.graphics.getWidth() * 0.7f, Gdx.graphics.getHeight() * 0.7f);
-        this.table.setPosition(Gdx.graphics.getWidth() * 0.15f, Gdx.graphics.getHeight() * 0.15f);
+        this.table.setPosition((activeSettings.getVideo().getResolution().width - table.getWidth()) / 2,  (activeSettings.getVideo().getResolution().height - table.getHeight()) / 2);
+
+//        this.table.setPosition(Gdx.graphics.getWidth() * 0.15f, Gdx.graphics.getHeight() * 0.15f);
 
         this.table.setBackground(skin.getDrawable("black"));
         table.setVisible(false);
@@ -33,23 +37,12 @@ public class SettingsUI {
 //Deserialize JSON>
 
 
-
-
-
         Json json = new Json();
         JsonReader reader = new JsonReader();
 
         FileHandle file = Gdx.files.internal("available-settings.json");
         JsonValue availSettings = json.fromJson(null, file);
 
-//        Try to load saved settings
-//        if null, load defaults
-        file = Gdx.files.local(GameResources.settingsLoc);
-        if (!file.exists()) {
-            System.out.println("Settings file not found");
-            file = Gdx.files.internal("game-settings.json");
-        }
-        this.activeSettings = json.fromJson(Settings.Active.class, file);
 
 
 
@@ -138,9 +131,6 @@ public class SettingsUI {
             if (option.equals(defaultValue))
                 resolutionBox.setSelected(defaultValue);
         }
-
-
-
         return resolutionBox;
     }
 
@@ -158,6 +148,9 @@ public class SettingsUI {
     private void saveResolution(int width, int height) {
         activeSettings.getVideo().getResolution().width = width;
         activeSettings.getVideo().getResolution().height = height;
+        this.table.setSize((float) width / 2, (float) height / 2);
+        this.table.setPosition((width - table.getWidth()) / 2, (height - table.getHeight()) / 2);
+
 //        activeSettings.save();
         Settings.saveSettings(this.activeSettings);
 

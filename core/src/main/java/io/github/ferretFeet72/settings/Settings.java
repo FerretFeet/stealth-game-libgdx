@@ -7,6 +7,10 @@ import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.JsonWriter;
 import io.github.ferretFeet72.utils.GameResources;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
 
 public class Settings {
 
@@ -118,6 +122,21 @@ public class Settings {
         String jsonSettings = json.prettyPrint(settings);
         file.writeString(jsonSettings, false);
 
+    }
+
+    public static Settings.Active getSettings() {
+        String settings = "";
+        try {
+            settings = Files.readString(Path.of(GameResources.settingsLoc));
+            System.out.println("Content " + settings);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        if (!settings.isEmpty()) {
+//            Fallback
+        }
+        Json json = new Json();
+        return json.fromJson(Settings.Active.class, settings);
     }
 //
 //    public static Settings.Active applySettings(Settings.Active settings) {

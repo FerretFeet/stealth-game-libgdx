@@ -37,22 +37,19 @@ public class Lwjgl3Launcher {
         int width = 800, height = 600;
         boolean fullscreen;
 
-        String settings = "";
-        try {
-            settings = Files.readString(Path.of(GameResources.settingsLoc));
-            System.out.println("Content " + settings);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        if (!settings.isEmpty()) {
-//            Fallback
-        }
-        Json json = new Json();
-        Settings.Active activeSettings = json.fromJson(Settings.Active.class, settings);
+        Settings.Active activeSettings = Settings.getSettings();
 
         width = activeSettings.getVideo().getResolution().width;
         height = activeSettings.getVideo().getResolution().height;
 
+
+
+
+//
+//
+//  FIX VIEWPORT SO IT STARTS WITH STARTING SETTINGS
+//
+//
 
 
         //// Vsync limits the frames per second to what your hardware can display, and helps eliminate
