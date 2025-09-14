@@ -1,5 +1,6 @@
 package io.github.ferretFeet72.utils;
 
+import com.badlogic.ashley.core.Engine;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -13,12 +14,14 @@ public class GameResources {
     public static SpriteBatch batch;
     public static AssetManager assets;
     public static String settingsLoc = "saved-settings.json";
+    public static Engine engine;
 
     public static void init() {
         camera = new OrthographicCamera();
-        viewport = new StretchViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+//        viewport = new StretchViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         batch = new SpriteBatch();
         assets = new AssetManager();
+        engine = new Engine();
 //        settingsLoc = "saved-settings.json";
 
     }
