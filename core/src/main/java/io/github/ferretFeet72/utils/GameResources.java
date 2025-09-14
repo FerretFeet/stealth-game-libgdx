@@ -12,12 +12,15 @@ public class GameResources {
     public static Viewport viewport;
     public static SpriteBatch batch;
     public static AssetManager assets;
+    public static String settingsLoc;
 
     public static void init() {
         camera = new OrthographicCamera();
         viewport = new StretchViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         batch = new SpriteBatch();
         assets = new AssetManager();
+        settingsLoc = "saved-settings.json";
+
     }
 
 

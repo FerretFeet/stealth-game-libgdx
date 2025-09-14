@@ -1,0 +1,13 @@
+{
+video: {
+	resolution: {
+		width: 800
+		height: 600
+	}
+	fullscreenEnabled: true
+}
+audio: {
+	masterVolume: 0.29999998
+}
+controls: {}
+}
