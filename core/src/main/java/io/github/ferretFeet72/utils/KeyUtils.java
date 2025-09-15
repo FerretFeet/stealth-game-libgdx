@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class KeyUtils {
+//    Used for keymapping
     public static Map<String, Integer> defKeyMap;
     public static void init() {
         defKeyMap = new HashMap<>();
@@ -18,9 +19,9 @@ public class KeyUtils {
     }
 
     public static int getKeyCode(String key) {
+
         return defKeyMap.getOrDefault(key, -1);
     }
 
-    //    defKeyMap.put("A",Input.Keys.A);
 
 }

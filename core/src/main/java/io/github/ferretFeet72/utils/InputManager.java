@@ -8,21 +8,20 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Json;
-import com.badlogic.gdx.utils.JsonValue;
 import io.github.ferretFeet72.components.InputComponent;
 import io.github.ferretFeet72.components.PlayerComponent;
-import io.github.ferretFeet72.utils.GameResources;
-import io.github.ferretFeet72.utils.KeyUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 enum PlayerAction {
+//    Allowed player actions
     MOVE_UP, MOVE_DOWN, MOVE_LEFT, MOVE_RIGHT
 }
 
 class Binding {
+//    hold key & associated action
     public String key;
     public String action;
     public Binding(String key, String value) {
@@ -33,6 +32,7 @@ class Binding {
 }
 
 class Bindings {
+//    hold instances of binding
     public ArrayList<Binding> keyBinds;
     public Bindings() {
         keyBinds = new ArrayList<>();
@@ -142,19 +142,19 @@ public class InputManager implements InputProcessor {
         } else {
             file = Gdx.files.internal("default-keymap.json");
         }
+
+//        translate from json to class
         Json json = new Json();
-        System.out.println("INPUT MANAGER JSON" + file.readString());
-
-//        JsonValue jsonFile = json.fromJson(null, file);
-
-
-
         Bindings bindings = json.fromJson(Bindings.class, file);
-        System.out.println("INPUT MANAGER BINDINGS" + bindings.keyBinds);
 
+//        Empty keyBinds before mapping
         keyBinds.clear();
+//        fill hashmap with keycode-player_action pairs
         for (Binding binding : bindings.keyBinds) {
+//            Translate key string to key code
             int keyCode = KeyUtils.getKeyCode(binding.key);
+
+//            Match action to enum
             PlayerAction keyAction = null;
             for (PlayerAction action : PlayerAction.values()) {
                 if (action.name().equalsIgnoreCase(binding.action)) {
@@ -162,10 +162,9 @@ public class InputManager implements InputProcessor {
                     break;
                 }
             }
+//            input into table
             keyBinds.put(keyCode, keyAction);
         }
-
-
         return keyBinds;
     }
 
