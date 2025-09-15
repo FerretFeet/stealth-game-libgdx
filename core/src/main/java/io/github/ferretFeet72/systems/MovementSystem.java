@@ -12,6 +12,7 @@ public class MovementSystem extends IteratingSystem {
     private final ComponentMapper<VelocityComponent> tm = ComponentMapper.getFor(VelocityComponent.class);
 
     public MovementSystem() {
+//        run on all entities with position, velocity
         super(Family.all(PositionComponent.class, VelocityComponent.class).get());
     }
 
@@ -22,6 +23,7 @@ public class MovementSystem extends IteratingSystem {
     protected void processEntity(Entity entity, float v) {
         PositionComponent pos = pm.get(entity);
         VelocityComponent vel = tm.get(entity);
+//        calculate position based off current position and velocity
         pos.x += vel.dx;
         pos.y += vel.dy;
     }

@@ -2,7 +2,6 @@ package io.github.ferretFeet72.systems;
 
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
-import com.badlogic.ashley.core.EntitySystem;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.ashley.systems.IteratingSystem;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -19,7 +18,9 @@ public class RenderSystem extends IteratingSystem {
 
 
     public RenderSystem() {
+//        Apply to all entities with position, texture, and size.
         super(Family.all(PositionComponent.class, TextureComponent.class, SizeComponent.class).get());
+//        get list of entities with components
         this.pm = ComponentMapper.getFor(PositionComponent.class);
         this.tm = ComponentMapper.getFor(TextureComponent.class);
         this.sm = ComponentMapper.getFor(SizeComponent.class);
@@ -28,6 +29,7 @@ public class RenderSystem extends IteratingSystem {
     }
     @Override
     public void update(float deltaTime) {
+//        draw batch. batch should be called  once per frame.
         batch.begin();
         super.update(deltaTime);
         batch.end();
@@ -35,9 +37,11 @@ public class RenderSystem extends IteratingSystem {
 
     @Override
     public void processEntity(Entity entity, float deltaTime) {
+//        get entity values
         PositionComponent pos = pm.get(entity);
         TextureComponent texture = tm.get(entity);
         SizeComponent size = sm.get(entity);
+//        draw
         batch.draw(texture.region, pos.x, pos.y, size.x, size.y);
     }
 }
