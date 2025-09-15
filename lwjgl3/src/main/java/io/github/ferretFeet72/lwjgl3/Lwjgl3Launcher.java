@@ -34,23 +34,19 @@ public class Lwjgl3Launcher {
     private static Lwjgl3ApplicationConfiguration getDefaultConfiguration() {
         Lwjgl3ApplicationConfiguration configuration = new Lwjgl3ApplicationConfiguration();
         configuration.setTitle("SpaceColony");
-        int width = 800, height = 600;
+//        Initialize necessary variables
+        int width, height;
         boolean fullscreen;
 
+//        Get settings
         Settings.Active activeSettings = Settings.getSettings();
 
-        width = activeSettings.getVideo().getResolution().width;
-        height = activeSettings.getVideo().getResolution().height;
+//        Get each setting
+        Settings.Active.Resolution res = activeSettings.getVideo().getResolution();
+        width = res.width;
+        height = res.height;
 
-
-
-
-//
-//
-//  FIX VIEWPORT SO IT STARTS WITH STARTING SETTINGS
-//
-//
-
+//        apply settings
 
         //// Vsync limits the frames per second to what your hardware can display, and helps eliminate
         //// screen tearing. This setting doesn't always work on Linux, so the line after is a safeguard.
@@ -61,7 +57,6 @@ public class Lwjgl3Launcher {
         //// If you remove the above line and set Vsync to false, you can get unlimited FPS, which can be
         //// useful for testing performance, but can also be very stressful to some hardware.
         //// You may also need to configure GPU drivers to fully disable Vsync; this can cause screen tearing.
-
 
 
         configuration.setWindowedMode(width, height);

@@ -12,20 +12,24 @@ import java.nio.file.Path;
 
 
 public class Settings {
+//    Get Settings File locations for use
+    private final static String USER_DEFINED_SETTINGS = GameResources.usrSettingsLoc;
+    private final static String DEFAULT_SETTINGS = GameResources.defSettingsLoc;
 
+//    Class for deserializing active settings
+//    Currently one is not needed for available settings
     public static class Active {
-        private static final String SETTINGS_FILE = "game-settings.json";
+//        ==================
+//    Define Translation variables
+//    ==========================
+        private Video video;
+        private Audio audio;
+        private Controls controls;
 
-        public Video video;
-        public Audio audio;
-        public Controls controls;
-
-        public Active() {
-
-        }
+        public Active() {}
 
         public static class Video {
-            public Resolution resolution;
+            private Resolution resolution;
             public boolean fullscreenEnabled;
 
             public Resolution getResolution() {
@@ -48,39 +52,6 @@ public class Settings {
 
         public static class Controls {}
 
-
-
-//        public static IActiveSettings load() {
-//            /** Load settings from JSON, or return defaults if file missing */
-//                FileHandle file = Gdx.files.local(SETTINGS_FILE);
-//                Json json = new Json();
-//
-//                if (!file.exists()) {
-//                    IActiveSettings defaults = new IActiveSettings();
-//                    defaults.save();  // create the file
-//                    return defaults;
-//                }
-//                return json.fromJson(IActiveSettings.class, file);
-//
-//        }
-
-//        public void save() {
-//            System.out.println("SAVING SETTINGS");
-//            FileHandle file = Gdx.files.local(ISettings.IActiveSettings.SETTINGS_FILE);
-//            Json json = new Json();
-//            JsonValue root;
-//
-//            if  (!file.exists()) {
-//
-//                root = new JsonValue(JsonValue.ValueType.object);
-//                root.addChild("settings", new JsonValue(JsonValue.ValueType.object));
-//            } else {
-//                root = json.fromJson(null, file);
-//            }
-//            System.out.println(root);
-//            file.writeString(json.prettyPrint(root), false);
-////            Gdx.files.local(SETTINGS_FILE).writeString(json.prettyPrint(root), false);
-//        }
 
 //        =======================
 //        -- Getters Setters --
@@ -108,45 +79,46 @@ public class Settings {
         public void setVideo(Video video) {
             this.video = video;
         }
-}
+    } //END Active
 
 //        =======================
 //        --- Read/Write to File --
 //        =======================
 
     public static void saveSettings(Settings.Active settings) {
-        FileHandle file = Gdx.files.local(GameResources.usrSettingsLoc);
+//        get file
+        FileHandle file = Gdx.files.local(USER_DEFINED_SETTINGS);
+
+//        Translate settings object to JSON
         Json json = new Json();
         json.setOutputType(JsonWriter.OutputType.json);  // Force standard JSON with quotes
         String jsonSettings = json.prettyPrint(settings);
-        file.writeString(jsonSettings, false);
 
+//        save to file, overwrite exisiting data
+        file.writeString(jsonSettings, false);
     }
 
     public static Settings.Active getSettings() {
         String settings = "";
-        String currentDir = System.getProperty("user.dir");
-        System.out.println("Current working directory: " + currentDir);
+        Path userSettingsPath = Path.of(USER_DEFINED_SETTINGS);
+        Path defSettingsPath = Path.of(DEFAULT_SETTINGS);
+//        Get user defined settings, if not exists get defaults
         try {
-            if (Files.exists(Path.of(GameResources.usrSettingsLoc))) {
-                settings = Files.readString(Path.of(GameResources.usrSettingsLoc));
+            if (Files.exists(userSettingsPath)) {
+//                User defined settings
+                settings = Files.readString(userSettingsPath);
             } else {
-                settings = Files.readString(Path.of(GameResources.defSettingsLoc));
+//                Default Settings
+                settings = Files.readString(defSettingsPath);
             }
-            System.out.println("Content " + settings);
         } catch (IOException e) {
+//            File not found
             throw new RuntimeException(e);
         }
+//        Translate from json to object
         Json json = new Json();
         return json.fromJson(Settings.Active.class, settings);
     }
-//
-//    public static Settings.Active applySettings(Settings.Active settings) {
-//
-//    }
 
-    public static class IAvailSettings {
-
-    }
 }
 
