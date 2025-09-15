@@ -13,6 +13,7 @@ import io.github.ferretFeet72.screens.ScreenManager;
 
 
 public class MainMenuUI {
+//    Parent will implement these methods
     public interface MainMenuListener {
         void onStartGameClicked();
         void onSettingsClicked();
@@ -35,7 +36,11 @@ public class MainMenuUI {
             }
         });
 
-//        Open Settings
+//        Add button to table
+        table.add(startButton);
+        table.row();
+
+//        Open Settings Button
         TextButton settingsButton = new TextButton("Settings", skin);
         settingsButton.addListener(new ChangeListener() {
             @Override
@@ -47,9 +52,7 @@ public class MainMenuUI {
             }
         });
 
-//        Add Buttons To Table
-        table.add(startButton);
-        table.row();
+//        Add Button To Table
         table.add(settingsButton);
 
     }
