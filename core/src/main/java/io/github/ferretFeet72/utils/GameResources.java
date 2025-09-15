@@ -23,9 +23,7 @@ public class GameResources {
         assets = new AssetManager();
         engine = new Engine();
 //        settingsLoc = "saved-settings.json";
-
     }
-
 
     public static void dispose() {
         batch.dispose();

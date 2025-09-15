@@ -30,7 +30,6 @@ public class MainMenuScreen extends BaseScreen implements MainMenuUI.MainMenuLis
         Gdx.input.setInputProcessor(stage);
 
         stage.addActor(mainMenuUI.getRootActor());
-        stage.addActor(settingsUI.getRootActor());
 
         mainMenuUI.setListener(this);
 
@@ -74,6 +73,8 @@ public class MainMenuScreen extends BaseScreen implements MainMenuUI.MainMenuLis
 
     @Override
     public void onSettingsClicked() {
+        this.settingsUI =  new SettingsUI(skin);
+        stage.addActor(settingsUI.getRootActor());
         settingsUI.setVisibility(true);
     }
 }

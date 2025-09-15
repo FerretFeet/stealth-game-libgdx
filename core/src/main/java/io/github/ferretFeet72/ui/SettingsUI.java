@@ -8,17 +8,18 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Json;
-import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
 import io.github.ferretFeet72.settings.Settings;
 import io.github.ferretFeet72.utils.GameResources;
 
 public class SettingsUI {
+
     private final Table table;
     private Settings.Active activeSettings;
 
     public SettingsUI(Skin skin) {
         this.activeSettings = Settings.getSettings();
+
         this.table = new Table();
 //        this.table.pack();
         this.table.setSize(Gdx.graphics.getWidth() * 0.5f, Gdx.graphics.getHeight() * 0.5f);
@@ -34,23 +35,18 @@ public class SettingsUI {
 // ####################################################
 //        Get Settings Options and Actives
 // ####################################################
-//Deserialize JSON>
+//        active settings exists on parent
+//        need to get values from available settings
 
-
+//        get json tree for available settings
         Json json = new Json();
-        JsonReader reader = new JsonReader();
-
         FileHandle file = Gdx.files.internal("available-settings.json");
         JsonValue availSettings = json.fromJson(null, file);
-
-
-
 
 //        Navigate to video settings
         JsonValue availVideoSettings = availSettings.get("video");
 //        capture resolutions and fullscreen toggle
         String[] availResolutions = availVideoSettings.get("resolutions").asStringArray();
-
 
 //        Navigate to audio
         JsonValue availAudioSettings = availSettings.get("audio");
@@ -63,25 +59,32 @@ public class SettingsUI {
 // ####################################################
 
 //        Volume Slider
+//              create label and slider
         Label volumeLabel = new Label("Volume", skin, "white");
         Slider volumeSlider = new Slider(masterVolumeRange[0], masterVolumeRange[1], 0.01f, false, skin);
+//        set starting value to last saved value
         volumeSlider.setValue(activeSettings.getAudio().masterVolume);
+//        add listener to apply when changed
         volumeSlider.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent changeEvent, Actor actor) {
-                saveVolume(volumeSlider.getValue());
+                applyVolume(volumeSlider.getValue());
             }
         });
+//        add to ui
         table.add(volumeLabel).pad(10);
         table.add(volumeSlider).pad(10);
         table.row();
 
 
 //        Window Size
-        Label resolutionLabel = new Label("Resolution", skin, "white");
+//        translate active settings resolution to available settings resolution format
         String activeResolutionString = activeSettings.getVideo().getResolution().width + "x" + activeSettings.getVideo().getResolution().height;
+//        create label and selection box
+        Label resolutionLabel = new Label("Resolution", skin, "white");
         SelectBox<String> resolutionBox = getStringSelectBox(skin, availResolutions, activeResolutionString);
 
+//        add listener to apply when changed
         resolutionBox.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent changeEvent, Actor actor) {
@@ -90,16 +93,11 @@ public class SettingsUI {
                 int width = Integer.parseInt(parts[0]);
                 int height = Integer.parseInt(parts[1]);
 
-                Gdx.app.postRunnable(() -> {
                     GameResources.viewport.update(width, height, true);
-                    if (!activeSettings.getVideo().fullscreenEnabled) {
-                        Gdx.graphics.setWindowedMode(width, height);
-                    }
-                    saveResolution(width, height);
-                });
-
+                    applyResolution(width, height);
             }
         });
+//        add to ui
         table.add(resolutionLabel).pad(10);
         table.add(resolutionBox).pad(10);
         table.row();
@@ -111,12 +109,22 @@ public class SettingsUI {
 
 
 
+        // Apply Settings
+        TextButton applyButton = new TextButton("Apply Settings", skin);
+        applyButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                Settings.saveSettings(activeSettings);
+            }
+        });
+        table.add(applyButton).colspan(2).padTop(20);
+
 //        Close Settings
         TextButton closeButton = new TextButton("Close Settings", skin);
         closeButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                table.setVisible(false);
+                closeTable();
             }
         });
         table.add(closeButton).colspan(2).padTop(20);
@@ -135,81 +143,41 @@ public class SettingsUI {
     }
 
     //    Functions to save settings
-    private FileHandle getActiveSettingsFile() {
-        return Gdx.files.local("game-settings.json");
+
+    private void closeTable() {
+//        refetch Settings, for if not changed
+        Settings.Active savedSettings = Settings.getSettings();
+        applyAll(savedSettings);
+        table.setVisible(false);
+        dispose();
     }
 
-    private void saveVolume(float volume) {
+    private void applyAll(Settings.Active settings) {
+        applyVolume(settings.getAudio().masterVolume);
+        applyResolution(settings.getVideo().getResolution().width, settings.getVideo().getResolution().height);
+        applyFullScreen(settings.getVideo().fullscreenEnabled);
+    }
+
+    private void applyVolume(float volume) {
         activeSettings.getAudio().masterVolume = volume;
-//        activeSettings.save();
-        Settings.saveSettings(this.activeSettings);
     }
 
-    private void saveResolution(int width, int height) {
+    private void applyResolution(int width, int height) {
+        if (!activeSettings.getVideo().fullscreenEnabled) {
+            System.out.println("Set Resolution");
+            Gdx.graphics.setWindowedMode(width, height);
+        }
         activeSettings.getVideo().getResolution().width = width;
         activeSettings.getVideo().getResolution().height = height;
         this.table.setSize((float) width / 2, (float) height / 2);
         this.table.setPosition((width - table.getWidth()) / 2, (height - table.getHeight()) / 2);
-
-//        activeSettings.save();
-        Settings.saveSettings(this.activeSettings);
-
     }
 
-    private void saveFullScreen(boolean fullScreen) {
+    private void applyFullScreen(boolean fullScreen) {
         activeSettings.getVideo().fullscreenEnabled = fullScreen;
-//        activeSettings.save();
-        Settings.saveSettings(this.activeSettings);
-
     }
 
 
-//    private void saveSettings(Settings.Active settings) {
-//        FileHandle file = Gdx.files.local(GameResources.settingsLoc);
-//        Json json = new Json();
-//        String jsonSettings = json.prettyPrint(settings);
-//        file.writeString(jsonSettings, false);
-//
-//    }
-
-//    Load Data
-//    public void loadGameSettings() {
-//        FileHandle file = getActiveSettingsFile();
-//
-//        JsonValue activeSettings = new JsonReader().parse(file);
-//        int width = activeSettings.get("video").get("resolution").get("width").asInt();
-//        int height = activeSettings.get("video").get("resolution").get("height").asInt();
-//        boolean fullscreenEnabled = activeSettings.get("video").get("fullscreenEnabled").asBoolean();
-//
-////        Set Resolution
-//        if (!fullscreenEnabled) {
-//            Gdx.graphics.setWindowedMode(width, height);
-//        } else {
-////            Get Monitor and compatible display modes
-//            Graphics.Monitor currMonitor = Gdx.graphics.getMonitor();
-//            Graphics.DisplayMode[] displayMode = Gdx.graphics.getDisplayModes(currMonitor);
-////            Find a display mode with a matching resolution
-//            Graphics.DisplayMode chosenMode = null;
-//            for (Graphics.DisplayMode mode : displayMode) {
-//                if (mode.width == width && mode.height == height) {
-//                    chosenMode = mode;
-//                    break;
-//                }
-//            }
-//            if (chosenMode != null) {
-//                Gdx.graphics.setFullscreenMode(chosenMode);
-//            } else {
-////                Fallback
-////                Should be beefed up
-////                So that if full screen already
-////                doesnt revert to windowed but
-////                instead reverts to last good res
-//                Gdx.graphics.setWindowedMode(width, height);
-//            }
-//        }
-//
-//        float  masterVolume = activeSettings.get("audio").get("masterVolume").asFloat();
-//    }
 
 
 //    Public Functions
@@ -217,8 +185,18 @@ public class SettingsUI {
         return table;
     }
 
+    public void openSettings() {
+        this.activeSettings = Settings.getSettings();
+        setVisibility(true);
+    }
+
     public void setVisibility(boolean isVisible) {
         table.setVisible(isVisible);
+    }
+
+    public void dispose() {
+        this.table.clear();
+
     }
 
 }
