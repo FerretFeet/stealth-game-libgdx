@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -21,12 +23,19 @@ public class SettingsUI {
         this.activeSettings = Settings.getSettings();
 
         this.table = new Table();
-//        this.table.pack();
+//        this enables table to capture clicks
+//        i.e. clicks wont activate buttons rendered below table
+        this.table.setTouchable(Touchable.enabled);
+        table.addListener(new InputListener() {
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+//                prevent click from being passed down
+                return true;
+            }
+        });
+
         this.table.setSize(Gdx.graphics.getWidth() * 0.5f, Gdx.graphics.getHeight() * 0.5f);
-
         this.table.setPosition((activeSettings.getVideo().getResolution().width - table.getWidth()) / 2,  (activeSettings.getVideo().getResolution().height - table.getHeight()) / 2);
-
-//        this.table.setPosition(Gdx.graphics.getWidth() * 0.15f, Gdx.graphics.getHeight() * 0.15f);
 
         this.table.setBackground(skin.getDrawable("black"));
         table.setVisible(false);
