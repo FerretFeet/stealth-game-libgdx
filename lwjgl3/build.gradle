@@ -34,6 +34,14 @@ dependencies {
   implementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
   implementation project(':core')
   implementation("com.badlogicgames.gdx:gdx-tools:$gdxVersion"){exclude group: 'com.badlogicgames.gdx', module: 'gdx-backend-lwjgl'}
+//  Testing Dependencies
+  // JUnit 5 API + engine
+  testImplementation 'org.junit.jupiter:junit-jupiter:5.11.3'
+  testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+  // Mockito (if you need it)
+  testImplementation 'org.mockito:mockito-core:5.14.2'
+  testImplementation 'org.mockito:mockito-junit-jupiter:5.14.2'
 
   if(enableGraalNative == 'true') {
     implementation "io.github.berstanio:gdx-svmhelper-backend-lwjgl3:$graalHelperVersion"
@@ -41,7 +49,23 @@ dependencies {
 
     }
 }
+configurations {
+  mockitoAgent {
+    canBeResolved = true
+    canBeConsumed = false
+    extendsFrom testImplementation
+  }
+}
 
+test {
+  useJUnitPlatform()
+  // Explicitly enable inline mockito
+  //Supresses warning
+  jvmArgs += [
+    "-javaagent:${configurations.mockitoAgent.resolve().find { it.name.contains('mockito-core') }.absolutePath}",
+    "-Xshare:off"
+  ]
+}
 def os = System.properties['os.name'].toLowerCase()
 
 run {
