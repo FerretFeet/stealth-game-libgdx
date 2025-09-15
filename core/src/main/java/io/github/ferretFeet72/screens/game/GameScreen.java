@@ -9,8 +9,10 @@ import io.github.ferretFeet72.components.PositionComponent;
 import io.github.ferretFeet72.entities.PlayerFactory;
 import io.github.ferretFeet72.screens.BaseScreen;
 import io.github.ferretFeet72.systems.MovementSystem;
+import io.github.ferretFeet72.systems.PlayerControlSystem;
 import io.github.ferretFeet72.systems.RenderSystem;
 import io.github.ferretFeet72.utils.GameResources;
+import io.github.ferretFeet72.utils.InputManager;
 
 import java.awt.*;
 
@@ -21,12 +23,14 @@ public class GameScreen extends BaseScreen {
         super(new ScreenViewport());
         engine.addSystem(new RenderSystem());
         engine.addSystem(new MovementSystem());
+        engine.addSystem(new PlayerControlSystem());
     }
 
 
     @Override
     public void show() {
         test = PlayerFactory.create(engine);
+        Gdx.input.setInputProcessor(new InputManager());
 
     }
 
@@ -40,7 +44,6 @@ public class GameScreen extends BaseScreen {
 
         engine.update(v);
         PositionComponent pos = (PositionComponent) test.getComponent(PositionComponent.class);
-        System.out.println(pos.x + " " + pos.y);
 
     }
 

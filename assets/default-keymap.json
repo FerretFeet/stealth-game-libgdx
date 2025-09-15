@@ -1,0 +1,20 @@
+{
+  "keyBinds": [
+    {
+      "key": "W",
+      "action": "MOVE_UP"
+    },
+    {
+      "key": "A",
+      "action": "MOVE_LEFT"
+    },
+    {
+      "key": "S",
+      "action": "MOVE_DOWN"
+    },
+    {
+      "key": "D",
+      "action": "MOVE_RIGHT"
+    }
+  ]
+}

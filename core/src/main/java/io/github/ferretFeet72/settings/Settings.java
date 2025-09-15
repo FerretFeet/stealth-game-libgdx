@@ -3,7 +3,6 @@ package io.github.ferretFeet72.settings;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Json;
-import com.badlogic.gdx.utils.JsonValue;
 import com.badlogic.gdx.utils.JsonWriter;
 import io.github.ferretFeet72.utils.GameResources;
 
@@ -116,7 +115,7 @@ public class Settings {
 //        =======================
 
     public static void saveSettings(Settings.Active settings) {
-        FileHandle file = Gdx.files.local(GameResources.settingsLoc);
+        FileHandle file = Gdx.files.local(GameResources.usrSettingsLoc);
         Json json = new Json();
         json.setOutputType(JsonWriter.OutputType.json);  // Force standard JSON with quotes
         String jsonSettings = json.prettyPrint(settings);
@@ -127,7 +126,7 @@ public class Settings {
     public static Settings.Active getSettings() {
         String settings = "";
         try {
-            settings = Files.readString(Path.of(GameResources.settingsLoc));
+            settings = Files.readString(Path.of(GameResources.usrSettingsLoc));
             System.out.println("Content " + settings);
         } catch (IOException e) {
             throw new RuntimeException(e);
