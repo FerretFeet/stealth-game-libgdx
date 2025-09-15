@@ -12,6 +12,7 @@ public class GameResources {
     public static SpriteBatch batch;
     public static AssetManager assets;
     public static String usrSettingsLoc = "saved-settings.json";
+    public static String defSettingsLoc = "assets/default-settings.json";
     public static String usrKeyMapLoc = "config/keymap.json";
     public static Engine engine;
 

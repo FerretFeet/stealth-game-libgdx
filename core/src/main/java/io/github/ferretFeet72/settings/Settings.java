@@ -125,14 +125,17 @@ public class Settings {
 
     public static Settings.Active getSettings() {
         String settings = "";
+        String currentDir = System.getProperty("user.dir");
+        System.out.println("Current working directory: " + currentDir);
         try {
-            settings = Files.readString(Path.of(GameResources.usrSettingsLoc));
+            if (Files.exists(Path.of(GameResources.usrSettingsLoc))) {
+                settings = Files.readString(Path.of(GameResources.usrSettingsLoc));
+            } else {
+                settings = Files.readString(Path.of(GameResources.defSettingsLoc));
+            }
             System.out.println("Content " + settings);
         } catch (IOException e) {
             throw new RuntimeException(e);
-        }
-        if (!settings.isEmpty()) {
-//            Fallback
         }
         Json json = new Json();
         return json.fromJson(Settings.Active.class, settings);

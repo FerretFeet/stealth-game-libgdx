@@ -1,0 +1,17 @@
+{
+  "video": {
+    "resolution": {
+      "width": 800,
+      "height": 600
+    },
+    "fullscreenEnabled": false
+  },
+  "audio": {
+    "masterVolume": 0.8
+  },
+  "controls": {
+
+  }
+
+}
+

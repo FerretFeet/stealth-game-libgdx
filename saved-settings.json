@@ -1,12 +1,12 @@
 {
 "video": {
 	"resolution": {
-		"width": 1920,
-		"height": 1080
+		"width": 1280,
+		"height": 720
 	}
 },
 "audio": {
-	"masterVolume": 0.42999998
+	"masterVolume": 0.8
 },
 "controls": {}
 }
