@@ -10,7 +10,7 @@ import io.github.ferretFeet72.utils.fontManager;
 
 public class ScreenManager {
 //    singleton
-    private static ScreenManager instance;
+    static ScreenManager instance;
     private Game game;
 
 

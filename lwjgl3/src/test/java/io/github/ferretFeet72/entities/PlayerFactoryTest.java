@@ -6,7 +6,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Texture;
 import io.github.ferretFeet72.components.*;
-import io.github.ferretFeet72.entities.PlayerFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedConstruction;
@@ -34,7 +33,6 @@ public class PlayerFactoryTest {
         when(Gdx.files.internal(anyString())).thenReturn(fileHandleMock);
         // The Texture constructor calls Gdx.gl.glTexImage2D, so we need to mock it.
         when(fileHandleMock.name()).thenReturn("centaur_brown_f.png");
-
         doNothing().when(Gdx.gl).glTexImage2D(anyInt(), anyInt(), anyInt(), anyInt(), anyInt(), anyInt(), anyInt(), anyInt(), any());
     }
 

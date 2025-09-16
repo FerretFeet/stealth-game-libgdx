@@ -24,7 +24,7 @@ public class MovementSystem extends IteratingSystem {
         PositionComponent pos = pm.get(entity);
         VelocityComponent vel = tm.get(entity);
 //        calculate position based off current position and velocity
-        pos.x += vel.dx;
-        pos.y += vel.dy;
+        pos.setX(pos.getX() + vel.getDx());
+        pos.setY(pos.getY() + vel.getDy());
     }
 }

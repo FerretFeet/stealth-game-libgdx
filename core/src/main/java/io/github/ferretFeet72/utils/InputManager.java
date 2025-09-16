@@ -59,16 +59,16 @@ public class InputManager implements InputProcessor {
             switch (i)
                 {
                 case Input.Keys.W:
-                    inputComponent.upPressed = true;
+                    inputComponent.setUpPressed(true);
                     break;
                 case Input.Keys.D:
-                    inputComponent.rightPressed = true;
+                    inputComponent.setRightPressed(true);
                     break;
                 case Input.Keys.A:
-                    inputComponent.leftPressed = true;
+                    inputComponent.setLeftPressed(true);
                     break;
                 case Input.Keys.S:
-                    inputComponent.downPressed = true;
+                    inputComponent.setDownPressed(true);
                     break;
                 }
         }
@@ -82,16 +82,16 @@ public class InputManager implements InputProcessor {
             switch (i)
             {
                 case Input.Keys.W:
-                    inputComponent.upPressed = false;
+                    inputComponent.setUpPressed(false);
                     break;
                 case Input.Keys.D:
-                    inputComponent.rightPressed = false;
+                    inputComponent.setRightPressed(false);
                     break;
                 case Input.Keys.A:
-                    inputComponent.leftPressed = false;
+                    inputComponent.setLeftPressed(false);
                     break;
                 case Input.Keys.S:
-                    inputComponent.downPressed = false;
+                    inputComponent.setDownPressed(false);
                     break;
             }
         }

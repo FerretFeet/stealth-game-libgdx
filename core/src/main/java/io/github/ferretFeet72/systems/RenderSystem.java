@@ -42,6 +42,6 @@ public class RenderSystem extends IteratingSystem {
         TextureComponent texture = tm.get(entity);
         SizeComponent size = sm.get(entity);
 //        draw
-        batch.draw(texture.region, pos.x, pos.y, size.x, size.y);
+        batch.draw(texture.getRegion(), pos.getX(), pos.getY(), size.getX(), size.getY());
     }
 }
