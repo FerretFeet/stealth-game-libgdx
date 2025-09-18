@@ -29,7 +29,7 @@ public class GameScreen extends BaseScreen {
 
     @Override
     public void show() {
-        test = PlayerFactory.create(engine);
+        engine.addEntity(PlayerFactory.create());
         Gdx.input.setInputProcessor(new InputManager());
 
     }

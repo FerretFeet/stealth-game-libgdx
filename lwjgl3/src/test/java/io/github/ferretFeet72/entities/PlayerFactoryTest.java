@@ -40,7 +40,7 @@ public class PlayerFactoryTest {
     public void testCreatePlayerEntityAddsAllComponents() {
         try (MockedConstruction<Texture> mockedTexture = mockConstruction(Texture.class)) {
             // Act
-            Entity playerEntity = PlayerFactory.create(engine);
+            Entity playerEntity = PlayerFactory.create();
 
             // Assert that the entity was created and has the correct components
             assertNotNull(playerEntity);
@@ -57,8 +57,6 @@ public class PlayerFactoryTest {
             verify(Gdx.files).internal("crawl-tiles/player/base/centaur_brown_f.png");
             assertNotNull(mockedTexture.constructed());
 
-            // Verify that the entity was added to the engine
-            verify(engine).addEntity(playerEntity);
         }
     }
 }

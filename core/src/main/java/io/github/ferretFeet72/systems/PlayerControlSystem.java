@@ -12,7 +12,7 @@ import static java.lang.Math.sqrt;
 
 public class PlayerControlSystem extends IteratingSystem {
 //    Should occur before render?
-    private static final int PRIORITY = 1;
+//    private static final int PRIORITY = 1;
 
     private final ComponentMapper<InputComponent> im = ComponentMapper.getFor(InputComponent.class);
     private final ComponentMapper<VelocityComponent> tm = ComponentMapper.getFor(VelocityComponent.class);
@@ -25,28 +25,14 @@ public class PlayerControlSystem extends IteratingSystem {
         super(Family.all(InputComponent.class, VelocityComponent.class, PlayerComponent.class).get());
     }
 
-    float limitToTopSpeed(float topSpeed, float changedVectorVal, float controlVectorVal) {
-//        take the destructured vector values
-//        ensure changed value does not cause
-//        to exceed topSpeed
-        if ((changedVectorVal * changedVectorVal) + (controlVectorVal * controlVectorVal) >= topSpeed) {
-            float newChangedValSquared = ((topSpeed * topSpeed) - (controlVectorVal * controlVectorVal));
-            changedVectorVal = (float) sqrt(newChangedValSquared);
-            return changedVectorVal;
+    public void limitToTopSpeed(SpeedComponent speed, VelocityComponent velocity) {
+        Vector2 vec = new Vector2(velocity.getDx(), velocity.getDy());
+        float topSpeed = speed.getTopSpeed();
+        if (vec.len2() > topSpeed * topSpeed) {
+            vec.nor().scl(topSpeed);
+            velocity.setDx(vec.x);
+            velocity.setDy(vec.y);
         }
-        return changedVectorVal;
-    }
-
-    float decelerate(float vectorDir, float accelDir) {
-        if (vectorDir != 0) {
-            float newVectorDir = abs(vectorDir) - abs(accelDir);
-            if (newVectorDir <= 0) {
-                return 0;
-            } else {
-                return newVectorDir;
-            }
-        }
-        return 0;
     }
 
     @Override
@@ -61,51 +47,38 @@ public class PlayerControlSystem extends IteratingSystem {
 
         float topSpeed = speed.getTopSpeed();
 
-
-//        Need momentum system?
-//        Kill all non-active movement
-        if (!input.isLeftPressed() && !input.isRightPressed()) {
-//            if (vec.x > 0) {
-//                vec.x = decelerate(vec.x, accel.getAx());
-//            }
-//            if (vec.x < 0) {
-//                vec.x = -decelerate(vec.x, accel.getAx());
-//            }
-//            velocity.setDx(vec.x);
-//            velocity.setDx(0);
-        }
-//
-        if (!input.isUpPressed() && !input.isDownPressed()) {
-//            if (vec.y > 0) {
-//                vec.y = decelerate(vec.y, accel.getAy());
-//            }
-//            if (vec.y < 0) {
-//                vec.y = -decelerate(vec.y, accel.getAy());
-//            }
-//            velocity.setDy(vec.y);
-//            velocity.setDy(0);
-        }
 //        movement controls, change velocity
         if (input.isUpPressed()) {
-//            if exceeding top speed
-            vec.y = limitToTopSpeed(topSpeed, vec.y, vec.x);
-//            set velocity to velocity + accel
-            velocity.setDy(vec.y + accel.getAy());
-
+            vec.y += accel.getAy() * v;
         }
         if (input.isDownPressed()) {
-            vec.y = -limitToTopSpeed(topSpeed, vec.y, vec.x);
-            velocity.setDy(vec.y - accel.getAy());
+            vec.y -= accel.getAy() * v;
         }
 
         if (input.isLeftPressed()) {
-            vec.x =  -limitToTopSpeed(topSpeed, vec.x, vec.y);
-            velocity.setDx(vec.x - accel.getAx());
+            vec.x -= accel.getAx() * v;
         }
         if (input.isRightPressed()) {
-            vec.x = limitToTopSpeed(topSpeed, vec.x, vec.y);
-            velocity.setDx(vec.x + accel.getAx());
+            vec.x += accel.getAx() * v;
         }
+
+//      Apply friction
+        if (vec.x == velocity.getDx()) {
+            vec.x = (vec.x * 0.8f);
+        }
+        if (vec.y == velocity.getDy()) {
+            vec.y = (vec.y * 0.8f);
+        }
+
+//        Clamp to top speed
+        if (vec.len2() > topSpeed * topSpeed) {
+            vec.nor().scl(topSpeed);
+        }
+
+//        set values
+        speed.setCurSpeed((float) sqrt(vec.len2()));
+        velocity.setDx(vec.x);
+        velocity.setDy(vec.y);
 
 
     }
