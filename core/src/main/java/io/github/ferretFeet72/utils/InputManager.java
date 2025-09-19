@@ -15,35 +15,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-enum PlayerAction {
-//    Allowed player actions
-    MOVE_UP, MOVE_DOWN, MOVE_LEFT, MOVE_RIGHT
-}
-
-class Binding {
-//    hold key & associated action
-    public String key;
-    public String action;
-    public Binding(String key, String value) {
-        this.key = key;
-        this.action = value;
-    }
-    public Binding() {}
-}
-
-class Bindings {
-//    hold instances of binding
-    public ArrayList<Binding> keyBinds;
-    public Bindings() {
-        keyBinds = new ArrayList<>();
-    }
-
-}
-
-
 
 public class InputManager implements InputProcessor {
-    private final Map<Integer, PlayerAction> keyBinds = new HashMap<>();
+    private Map<Integer, PlayerActions> keyBinds = new HashMap<>();
     Entity player = GameResources.engine.getEntitiesFor(Family.all(PlayerComponent.class, InputComponent.class).get()).first();
     ComponentMapper<InputComponent> im = ComponentMapper.getFor(InputComponent.class);
     InputComponent inputComponent = im.get(player);
@@ -52,9 +26,9 @@ public class InputManager implements InputProcessor {
     @Override
     public boolean keyDown(int i) {
         if(keyBinds.isEmpty()){
-            getKeyBinds();
+            keyBinds = KeyBindingsLoader.loadKeyBinds(keyBinds);
         }
-        PlayerAction action = keyBinds.get(i);
+        PlayerActions action = keyBinds.get(i);
         if (action != null) {
             switch (i)
                 {
@@ -77,7 +51,7 @@ public class InputManager implements InputProcessor {
 
     @Override
     public boolean keyUp(int i) {
-        PlayerAction action = keyBinds.get(i);
+        PlayerActions action = keyBinds.get(i);
         if (action != null) {
             switch (i)
             {
@@ -133,40 +107,7 @@ public class InputManager implements InputProcessor {
         return false;
     }
 
-    private Map<Integer, PlayerAction> getKeyBinds() {
-        KeyUtils.init();
-        FileHandle file;
-//        Check for user file, if not, use default
-        if (Gdx.files.local(GameResources.usrKeyMapLoc).exists()) {
-            file = Gdx.files.local(GameResources.usrKeyMapLoc);
-        } else {
-            file = Gdx.files.internal("default-keymap.json");
-        }
 
-//        translate from json to class
-        Json json = new Json();
-        Bindings bindings = json.fromJson(Bindings.class, file);
-
-//        Empty keyBinds before mapping
-        keyBinds.clear();
-//        fill hashmap with keycode-player_action pairs
-        for (Binding binding : bindings.keyBinds) {
-//            Translate key string to key code
-            int keyCode = KeyUtils.getKeyCode(binding.key);
-
-//            Match action to enum
-            PlayerAction keyAction = null;
-            for (PlayerAction action : PlayerAction.values()) {
-                if (action.name().equalsIgnoreCase(binding.action)) {
-                    keyAction = action;
-                    break;
-                }
-            }
-//            input into table
-            keyBinds.put(keyCode, keyAction);
-        }
-        return keyBinds;
-    }
 
     public void dispose() {
         keyBinds.clear();

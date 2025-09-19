@@ -17,7 +17,7 @@ import io.github.ferretFeet72.utils.InputManager;
 import java.awt.*;
 
 public class GameScreen extends BaseScreen {
-    private Entity test;
+    private Entity player;
     private Engine engine = GameResources.engine;
     public GameScreen() {
         super(new ScreenViewport());
@@ -29,7 +29,8 @@ public class GameScreen extends BaseScreen {
 
     @Override
     public void show() {
-        engine.addEntity(PlayerFactory.create());
+        player = PlayerFactory.create();
+        engine.addEntity(player);
         Gdx.input.setInputProcessor(new InputManager());
 
     }
@@ -43,7 +44,7 @@ public class GameScreen extends BaseScreen {
         GameResources.batch.setProjectionMatrix(GameResources.viewport.getCamera().combined);
 
         engine.update(v);
-        PositionComponent pos = (PositionComponent) test.getComponent(PositionComponent.class);
+        PositionComponent pos = (PositionComponent) player.getComponent(PositionComponent.class);
 
     }
 

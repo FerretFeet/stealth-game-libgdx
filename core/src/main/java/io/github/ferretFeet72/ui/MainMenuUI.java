@@ -24,6 +24,7 @@ public class MainMenuUI {
 
 //        Start Game Button
         TextButton startButton = new TextButton("Start Game", skin);
+        startButton.setName("Start Game");
         startButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
@@ -38,6 +39,7 @@ public class MainMenuUI {
 
 //        Open Settings Button
         TextButton settingsButton = new TextButton("Settings", skin);
+        settingsButton.setName("Settings");
         settingsButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
