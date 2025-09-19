@@ -25,10 +25,7 @@ import io.github.ferretFeet72.components.DoorComponent;
 import io.github.ferretFeet72.components.PositionComponent;
 import io.github.ferretFeet72.components.SizeComponent;
 import io.github.ferretFeet72.entities.PlayerFactory;
-import io.github.ferretFeet72.systems.CollisionSystem;
-import io.github.ferretFeet72.systems.MovementSystem;
-import io.github.ferretFeet72.systems.PlayerControlSystem;
-import io.github.ferretFeet72.systems.RenderSystem;
+import io.github.ferretFeet72.systems.*;
 import io.github.ferretFeet72.utils.GameResources;
 import io.github.ferretFeet72.utils.keyBindings.InputManager;
 
@@ -116,6 +113,7 @@ public class LevelOne implements Screen {
         engine.addSystem(new PlayerControlSystem());
         engine.addSystem(new MovementSystem());
         engine.addSystem(new CollisionSystem());
+//        engine.addSystem(new DoorSystem());
 
 
     }
