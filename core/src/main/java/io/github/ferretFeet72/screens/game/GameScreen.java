@@ -4,6 +4,7 @@ import com.badlogic.ashley.core.Engine;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import io.github.ferretFeet72.components.PositionComponent;
 import io.github.ferretFeet72.entities.PlayerFactory;
@@ -12,13 +13,15 @@ import io.github.ferretFeet72.systems.MovementSystem;
 import io.github.ferretFeet72.systems.PlayerControlSystem;
 import io.github.ferretFeet72.systems.RenderSystem;
 import io.github.ferretFeet72.utils.GameResources;
-import io.github.ferretFeet72.utils.InputManager;
+import io.github.ferretFeet72.utils.keyBindings.InputManager;
 
 import java.awt.*;
 
 public class GameScreen extends BaseScreen {
     private Entity player;
     private Engine engine = GameResources.engine;
+    private TiledMap map;
+
     public GameScreen() {
         super(new ScreenViewport());
         engine.addSystem(new RenderSystem());
@@ -29,8 +32,16 @@ public class GameScreen extends BaseScreen {
 
     @Override
     public void show() {
+//        load map
+//        load objects
+
+//        spawn NPCs
+
+//        spawn player
         player = PlayerFactory.create();
         engine.addEntity(player);
+
+//        set inputs
         Gdx.input.setInputProcessor(new InputManager());
 
     }

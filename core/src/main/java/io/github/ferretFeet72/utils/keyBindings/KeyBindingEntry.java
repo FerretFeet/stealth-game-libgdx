@@ -1,4 +1,4 @@
-package io.github.ferretFeet72.utils;
+package io.github.ferretFeet72.utils.keyBindings;
 
 public class KeyBindingEntry {
     //    hold key & associated action

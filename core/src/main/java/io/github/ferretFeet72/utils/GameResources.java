@@ -4,6 +4,7 @@ import com.badlogic.ashley.core.Engine;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class GameResources {
@@ -15,6 +16,7 @@ public class GameResources {
     public static String defSettingsLoc = "assets/default-settings.json";
     public static String usrKeyMapLoc = "config/keymap.json";
     public static Engine engine;
+    public static TiledMap map;
 
     public static void init() {
         camera = new OrthographicCamera();

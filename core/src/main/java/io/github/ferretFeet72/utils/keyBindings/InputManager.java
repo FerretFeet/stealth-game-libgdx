@@ -1,17 +1,14 @@
-package io.github.ferretFeet72.utils;
+package io.github.ferretFeet72.utils.keyBindings;
 
 import com.badlogic.ashley.core.ComponentMapper;
 import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
-import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.utils.Json;
 import io.github.ferretFeet72.components.InputComponent;
 import io.github.ferretFeet72.components.PlayerComponent;
+import io.github.ferretFeet72.utils.GameResources;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 

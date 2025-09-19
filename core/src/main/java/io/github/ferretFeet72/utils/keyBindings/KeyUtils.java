@@ -1,4 +1,4 @@
-package io.github.ferretFeet72.utils;
+package io.github.ferretFeet72.utils.keyBindings;
 
 import com.badlogic.gdx.Input;
 

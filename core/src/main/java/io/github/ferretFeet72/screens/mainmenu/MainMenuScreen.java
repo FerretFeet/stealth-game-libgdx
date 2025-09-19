@@ -1,5 +1,6 @@
 package io.github.ferretFeet72.screens.mainmenu;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -10,12 +11,16 @@ import io.github.ferretFeet72.ui.MainMenuUI;
 import io.github.ferretFeet72.ui.SettingsUI;
 
 public class MainMenuScreen extends BaseScreen implements MainMenuUI.MainMenuListener{
+    private Game game;
     private Skin skin;
     private MainMenuUI mainMenuUI;
     private SettingsUI settingsUI;
 
-    public MainMenuScreen() {
+    public MainMenuScreen(Game game) {
+
         super(new ScreenViewport());
+        this.game = game;
+
         this.skin = new Skin(Gdx.files.internal("skin/metal-ui.json"));
         this.mainMenuUI = new MainMenuUI(skin);
         this.settingsUI = new SettingsUI(skin);
@@ -68,7 +73,7 @@ public class MainMenuScreen extends BaseScreen implements MainMenuUI.MainMenuLis
 
     @Override
     public void onStartGameClicked() {
-        ScreenManager.getInstance().showScreen(ScreenEnum.GAME);
+        ScreenManager.getInstance().showScreen(ScreenEnum.LEVEL_ONE, game);
     }
 
     @Override

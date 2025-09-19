@@ -1,6 +1,5 @@
-package io.github.ferretFeet72.utils;
+package io.github.ferretFeet72.utils.keyBindings;
 
-import javax.swing.text.JTextComponent;
 import java.util.ArrayList;
 
 public class KeyBindings {

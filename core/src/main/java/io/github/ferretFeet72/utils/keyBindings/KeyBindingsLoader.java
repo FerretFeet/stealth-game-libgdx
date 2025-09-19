@@ -1,14 +1,9 @@
-package io.github.ferretFeet72.utils;
+package io.github.ferretFeet72.utils.keyBindings;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.Json;
 import io.github.ferretFeet72.utils.GameResources;
-import io.github.ferretFeet72.utils.KeyBindings;
-import io.github.ferretFeet72.utils.KeyBindingEntry;
-
-import io.github.ferretFeet72.utils.KeyUtils;
-import io.github.ferretFeet72.utils.PlayerActions;
 
 import java.util.Map;
 

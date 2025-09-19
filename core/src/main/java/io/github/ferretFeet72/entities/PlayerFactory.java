@@ -15,10 +15,10 @@ public class PlayerFactory {
         Entity player = new Entity();
         player.add(new PlayerComponent());
         player.add(new InputComponent());
-        player.add(new SpeedComponent(500f, 0f));
-        player.add(new PositionComponent(50, 50, 1));
-        player.add(new SizeComponent(50, 50, 1));
-        player.add(new AccelerationComponent(50f, 50f, 0f));
+        player.add(new SpeedComponent(8f, 0f));
+        player.add(new PositionComponent(96, 96, 0));
+        player.add(new SizeComponent(32, 32, 1));
+        player.add(new AccelerationComponent(5f, 8f, 0f));
         player.add(new VelocityComponent(0, 0, 0));
         player.add(new CollisionComponent(true));
         player.add(new TextureComponent(playerTexture));

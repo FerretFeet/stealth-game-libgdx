@@ -34,7 +34,7 @@ public class Main extends Game {
 
 
 
-        screenManager.showScreen(ScreenEnum.MAIN_MENU);
+        screenManager.showScreen(ScreenEnum.MAIN_MENU, this);
 
 
     }
