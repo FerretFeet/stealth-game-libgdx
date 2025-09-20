@@ -14,11 +14,11 @@ public class KeyBindingsLoader {
         KeyUtils.init();
         FileHandle file;
 //        Check for user file, if not, use default
-        if (Gdx.files.local(GameResources.usrKeyMapLoc).exists()) {
-            file = Gdx.files.local(GameResources.usrKeyMapLoc);
-        } else {
+//        if (Gdx.files.local(GameResources.usrKeyMapLoc).exists()) {
+//            file = Gdx.files.local(GameResources.usrKeyMapLoc);
+//        } else {
             file = Gdx.files.internal("default-keymap.json");
-        }
+//        }
 
 //        translate from json to class
         Json json = new Json();

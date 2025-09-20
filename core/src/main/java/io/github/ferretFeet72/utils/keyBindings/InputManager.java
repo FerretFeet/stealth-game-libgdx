@@ -44,6 +44,7 @@ public class InputManager implements InputProcessor {
                     inputComponent.setDownPressed(true);
                     break;
                 case PlayerActions.INTERACT:
+                    System.out.println("Interact Pressed");
                     inputComponent.setInteractPressed(true);
                     break;
                 }

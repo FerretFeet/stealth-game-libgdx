@@ -20,10 +20,7 @@ import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import io.github.ferretFeet72.components.CollisionComponent;
-import io.github.ferretFeet72.components.DoorComponent;
-import io.github.ferretFeet72.components.PositionComponent;
-import io.github.ferretFeet72.components.SizeComponent;
+import io.github.ferretFeet72.components.*;
 import io.github.ferretFeet72.entities.PlayerFactory;
 import io.github.ferretFeet72.systems.*;
 import io.github.ferretFeet72.utils.GameResources;
@@ -113,7 +110,8 @@ public class LevelOne implements Screen {
         engine.addSystem(new PlayerControlSystem());
         engine.addSystem(new MovementSystem());
         engine.addSystem(new CollisionSystem());
-//        engine.addSystem(new DoorSystem());
+        engine.addSystem(new InteractionSystem());
+        engine.addSystem(new DoorSystem());
 
 
     }
@@ -202,6 +200,7 @@ public class LevelOne implements Screen {
                     int openTileID = openDoorCell.getTile().getId();
                     int closedTileID = closedDoorCell.getTile().getId();
                     entity.add(new DoorComponent(closedTileID, openTileID, i, j));
+                    entity.add(new InteractableComponent(InteractableComponent.InteractableType.DOOR));
                 }
 
                 engine.addEntity(entity);

@@ -54,7 +54,7 @@ public class RenderSystem extends IteratingSystem {
         float drawY = pos.getY(); // Default Y position
 
         if (dir != null && dir.getDirection() == DirectionHelper.Direction.RIGHT) {
-//          if facing left, mirror horizontally
+//          if facing right, mirror horizontally
             drawWidth = -size.getX(); //negative width flips image
 //            adjust X to keep image in original location
             drawX = pos.getX() + size.getX();

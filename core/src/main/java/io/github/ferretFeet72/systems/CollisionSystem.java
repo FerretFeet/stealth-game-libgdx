@@ -35,9 +35,7 @@ public class CollisionSystem  extends IteratingSystem {
             resolveCollision(entity, other); //handle position change
 
             otherCol.setColliding(true);
-            if (other.getComponent(DoorComponent.class) != null) {
-                toggleDoor(other);
-            }
+
 //            can theoretically only collide with one object at a time
 //            if reaches this piece of code, should have collided
 //            break;
@@ -74,24 +72,6 @@ public class CollisionSystem  extends IteratingSystem {
         }
     }
 
-    private void toggleDoor(Entity other) {
-            DoorComponent door = other.getComponent(DoorComponent.class);
-//            get door layer
-            TiledMapTileLayer closedDoorLayer = (TiledMapTileLayer) GameResources.map.getLayers().get("closedDoors");
-
-            TiledMapTile openDoorTile = GameResources.map.getTileSets().getTile(door.openTileId);
-            TiledMapTile closedDoorTile = GameResources.map.getTileSets().getTile(door.closedTileId);
-
-            TiledMapTile curDoorTileID = closedDoorLayer.getCell(door.tileX, door.tileY).getTile();
-            if (curDoorTileID == closedDoorTile) {
-                closedDoorLayer.getCell(door.tileX, door.tileY).setTile(openDoorTile);
-            } else if (curDoorTileID == openDoorTile) {
-                closedDoorLayer.getCell(door.tileX, door.tileY).setTile(closedDoorTile);
-            }
-            other.remove(CollisionComponent.class);
-
-            System.out.println("Door opened and collision removed!");
-        }
 
 
     private void resolveOutOfBounds(Entity entity) {
