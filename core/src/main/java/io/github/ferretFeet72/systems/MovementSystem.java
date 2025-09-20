@@ -25,17 +25,7 @@ public class MovementSystem extends IteratingSystem {
     protected void processEntity(Entity entity, float v) {
         PositionComponent pos = pm.get(entity);
         VelocityComponent vel = tm.get(entity);
-        CollisionComponent coll = cm.get(entity);
-//        calculate position based off current position and velocity
-//        if (coll.isColliding()) {
-////            pos.setX(pos.getX() - vel.getDx());
-////            pos.setY(pos.getY() - vel.getDy());
-//            pos.setX(pos.getX() - vel.getDx());
-//            pos.setY(pos.getY() - vel.getDy());
-//            System.out.println("Collision True, Mvmnt");
-//            return;
-//        }
-        pos.setX(pos.getX() + vel.getDx());
-        pos.setY(pos.getY() + vel.getDy());
+        pos.setX(pos.getX() + vel.getDx() * v);
+        pos.setY(pos.getY() + vel.getDy() * v);
     }
 }

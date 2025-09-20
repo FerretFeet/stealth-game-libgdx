@@ -42,6 +42,7 @@ public class PlayerControlSystem extends IteratingSystem {
         VelocityComponent velocity = tm.get(entity);
         SpeedComponent speed = sm.get(entity);
         AccelerationComponent accel = am.get(entity);
+        DecelerationComponent decel = entity.getComponent(DecelerationComponent.class);
 
         Vector2 vec = new Vector2(velocity.getDx(), velocity.getDy());
 
@@ -62,13 +63,9 @@ public class PlayerControlSystem extends IteratingSystem {
             vec.x += accel.getAx() * v;
         }
 
-//      Apply friction
-        if (vec.x == velocity.getDx()) {
-            vec.x = (vec.x * 0.8f);
-        }
-        if (vec.y == velocity.getDy()) {
-            vec.y = (vec.y * 0.8f);
-        }
+//      apply friction
+        float friction = decel.getFriction();
+        vec.scl(friction);
 
 //        Clamp to top speed
         if (vec.len2() > topSpeed * topSpeed) {
