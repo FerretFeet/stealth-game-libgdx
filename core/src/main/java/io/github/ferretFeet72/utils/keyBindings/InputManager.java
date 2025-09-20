@@ -12,6 +12,8 @@ import io.github.ferretFeet72.utils.GameResources;
 import java.util.HashMap;
 import java.util.Map;
 
+import static io.github.ferretFeet72.utils.keyBindings.PlayerActions.MOVE_UP;
+
 
 public class InputManager implements InputProcessor {
     private Map<Integer, PlayerActions> keyBinds = new HashMap<>();
@@ -27,19 +29,22 @@ public class InputManager implements InputProcessor {
         }
         PlayerActions action = keyBinds.get(i);
         if (action != null) {
-            switch (i)
+            switch (action)
                 {
-                case Input.Keys.W:
+                case PlayerActions.MOVE_UP:
                     inputComponent.setUpPressed(true);
                     break;
-                case Input.Keys.D:
+                case PlayerActions.MOVE_RIGHT:
                     inputComponent.setRightPressed(true);
                     break;
-                case Input.Keys.A:
+                case PlayerActions.MOVE_LEFT:
                     inputComponent.setLeftPressed(true);
                     break;
-                case Input.Keys.S:
+                case PlayerActions.MOVE_DOWN:
                     inputComponent.setDownPressed(true);
+                    break;
+                case PlayerActions.INTERACT:
+                    inputComponent.setInteractPressed(true);
                     break;
                 }
         }
@@ -50,19 +55,22 @@ public class InputManager implements InputProcessor {
     public boolean keyUp(int i) {
         PlayerActions action = keyBinds.get(i);
         if (action != null) {
-            switch (i)
+            switch (action)
             {
-                case Input.Keys.W:
+                case MOVE_UP:
                     inputComponent.setUpPressed(false);
                     break;
-                case Input.Keys.D:
+                case MOVE_RIGHT:
                     inputComponent.setRightPressed(false);
                     break;
-                case Input.Keys.A:
+                case MOVE_LEFT:
                     inputComponent.setLeftPressed(false);
                     break;
-                case Input.Keys.S:
+                case MOVE_DOWN:
                     inputComponent.setDownPressed(false);
+                    break;
+                case INTERACT:
+                    inputComponent.setInteractPressed(false);
                     break;
             }
         }

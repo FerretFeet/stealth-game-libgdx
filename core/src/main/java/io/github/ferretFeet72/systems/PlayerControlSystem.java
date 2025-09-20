@@ -62,6 +62,9 @@ public class PlayerControlSystem extends IteratingSystem {
         if (input.isRightPressed()) {
             vec.x += accel.getAx() * v;
         }
+        if (input.isInteractPressed()) {
+            entity.add(new InteractionEventComponent());
+        }
 
 //      apply friction
         float friction = decel.getFriction();

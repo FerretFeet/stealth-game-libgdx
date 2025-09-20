@@ -7,6 +7,7 @@ public class InputComponent implements Component {
     private boolean downPressed;
     private boolean leftPressed;
     private boolean rightPressed;
+    private boolean interactPressed;
 
 
     public InputComponent() {
@@ -14,6 +15,7 @@ public class InputComponent implements Component {
         this.downPressed = false;
         this.leftPressed = false;
         this.rightPressed = false;
+        this.interactPressed = false;
     }
 
     public boolean isUpPressed() {
@@ -48,5 +50,11 @@ public class InputComponent implements Component {
         this.rightPressed = rightPressed;
     }
 
+    public boolean isInteractPressed() {
+        return interactPressed;
+    }
 
+    public void setInteractPressed(boolean interactPressed) {
+        this.interactPressed = interactPressed;
+    }
 }
