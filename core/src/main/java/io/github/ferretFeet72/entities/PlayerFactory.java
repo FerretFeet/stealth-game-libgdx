@@ -17,7 +17,7 @@ public class PlayerFactory {
         player.add(new InputComponent());
         player.add(new SpeedComponent(5000f, 0f));
         player.add(new PositionComponent(96, 96, 0));
-        player.add(new SizeComponent(32, 64, 1));
+        player.add(new SizeComponent(32, 32, 1));
         player.add(new AccelerationComponent(2500f, 2500f, 0f));
         player.add(new DecelerationComponent(0.8f));
         player.add(new DirectionComponent());

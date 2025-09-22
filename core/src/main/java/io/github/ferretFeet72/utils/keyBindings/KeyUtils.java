@@ -16,6 +16,7 @@ public class KeyUtils {
         defKeyMap.put("S", Input.Keys.S);
         defKeyMap.put("W", Input.Keys.W);
         defKeyMap.put("E", Input.Keys.E);
+        defKeyMap.put("F", Input.Keys.F);
 
     }
 

@@ -1,0 +1,83 @@
+# Scope
+
+ - small stealth game, 3 levels, afterthought story
+ - map
+   - interactables:
+     - doors
+     - valuables (items for the player to get for score)
+     - (stretch) objects for the player to hide in (dumpster, locker, etc)
+   - (stretch) lighting system
+ - player
+   - hides around corners and behind objects
+   - has melee knockout attack
+   - has ranged kill attack
+     - one hit kill unaware enemies, 2 hit kill aware enemies
+   - can drag downed enemies to a new location
+     - (stretch) killed enemies leave a blood splatter to be investigated
+ - enemies 
+   - patrol routes
+   - have vision cones
+   - (stretch) notice when objects in vision cone change state from last observation
+     - investigate object and surrounding area
+   - chase player when spotted in vision cone 
+     - alert nearby guards in a radius to also search for player
+     - investigate (wander) around the area player was spotted
+     - countdown from time last seen, timer ends, return to patrol
+   - attack the player with ranged attacks
+ - Score
+   - guarded or difficult to access items are worth points
+   - knocking out guards is worth points
+     - leaving guards completely undisturbed is worth more points
+   - being spotted deducts points
+   - killing guards deducts is 0 or negative points
+   - 
+
+
+## TO DO
+
+- [ ] Create enemy builder/factory
+  - [ ] Enemies dynamically create path from point A to B
+    - path around collision objects
+  - [ ] Enemies cast a vision cone infront of them, and notice when the player is in the cone
+    - [ ] Enemies remember the position where the player was last spotted
+  - [ ] Enemies path randomly in an area around where the player was last seen
+    - until a time interval is passed
+  - [ ] enemies can be in various states: pursuit, alert, awake, unconscious, dead
+    - [ ] dead: cannot move or interact, if seen by another enemy, that enemy becomes alert
+    - [ ] unconscious: same as dead, but will be revived if spotted and interacted with by another enemy.
+      - [ ] Can be revived by another enemy
+    - [ ] passive: enemy is performing normal behavior ie patrolling routes, standing in position.
+    - [ ] suspicious: enemy has seen the player. stops movement until a timer is filled, then enter pursuit
+      - [ ] a visual indicator appears to indicate the player being spotted
+    - [ ] pursuit: move to the players last seen location. wander around until a timer runs out 
+  - [ ] Enemies can emit a ranged projectile to target the player
+  - [ ] Enemies can cause other nearby enemies to enter pursuit mode 
+- Projectile System
+  - [ ] When a button is push or a function is activated, a projectile is emitted by an entity
+    - [ ] The projectile travels in a straight line towards the target
+      - [ ] The projectile has working collision
+      - [ ] The projectile travels at a set speed towards the player
+      - [ ] The projectile disappears upon collision
+      create a new input, ensure it works with console log
+      creates a sprite
+      the sprite moves towards a target
+      - the sprite rotates depending on direction
+      the object registers collisions
+      the sprite disappears on collision
+        (after enemy creation)
+      the projectile causes a damage event? when colliding with a player or enemy
+- Attack System
+  - [ ] When a function is activated, an entity determines if there is an entity with health in it's vicinity.
+    - [ ] if so, lower the health value
+    - [ ] if not, null
+- Player
+  - [ ] Can range attack
+    - [ ] Attack one shot kills non-pursuit enemies
+    - [ ] The attack two-shot kills pursuit enemies
+      - (Half damage on pursuit enemies)
+  - [ ] can melee knockout
+  - [ ] Can pick up unconscious or dead enemies and relocate them
+- (Stretch) Light System
+  - [ ] Certain tiles can emit light levels which spread to surrounding tiles
+  - [ ] Light levels affect the game graphically
+  - [ ] Enemy vision cones are affected by light levels.

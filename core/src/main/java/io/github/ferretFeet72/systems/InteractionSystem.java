@@ -45,13 +45,13 @@ public class InteractionSystem extends EntitySystem {
                 PositionComponent playerPos = pm.get(player);
                 DirectionComponent playerDir = dm.get(player);
                 SizeComponent playerSize = sm.get(player);
-                float curInteractionRange;
-                if (playerDir.getDirection() == DirectionHelper.Direction.UP) {
-                    System.out.println("dir up");
-                    curInteractionRange = 2*INTERACTION_RANGE;
-                } else {
-                    curInteractionRange = INTERACTION_RANGE;
-                }
+                float curInteractionRange = INTERACTION_RANGE;
+//                if (playerDir.getDirection() == DirectionHelper.Direction.UP) {
+//                    System.out.println("dir up");
+//                    curInteractionRange = 2*INTERACTION_RANGE;
+//                } else {
+//                    curInteractionRange = INTERACTION_RANGE;
+//                }
                 // Calculate the target interaction point.
                 // This is a simple 'raycast' using the player's direction.
                 float centerX = playerPos.getX() + (playerSize.getX() / 2);
