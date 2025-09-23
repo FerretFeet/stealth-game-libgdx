@@ -52,9 +52,17 @@
     - [ ] pursuit: move to the players last seen location. wander around until a timer runs out 
   - [ ] Enemies can emit a ranged projectile to target the player
   - [ ] Enemies can cause other nearby enemies to enter pursuit mode 
+    create factory function to add relevant components
+    create pathfinding function to move from point A to point B
+    - find collidable objects in rectangle of Point A to point B
+      - find map which contains collidable objects positions
+      - use A*?
+    - build path in 45 degree angles might help
+    - ensure path does not intersect collidable objects
+    - have some randomness in movement. multiple enemies should not move in the exact same line
 - Projectile System
   - [x] When a button is push or a function is activated, a projectile is emitted by an entity
-    - [x] The projectile travels in a straight line towards the target
+    - [x] The projectile travels in a straighlt line towards the target
       - [x] The projectile has working collision
       - [x] The projectile travels at a set speed towards the target
   - [x] The projectile disappears upon collision
