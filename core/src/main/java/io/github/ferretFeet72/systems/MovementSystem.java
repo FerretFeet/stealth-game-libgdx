@@ -34,8 +34,8 @@ public class MovementSystem extends IteratingSystem {
 
         pos.setX(pos.getX() + vel.getDx() * v);
         pos.setY(pos.getY() + vel.getDy() * v);
-        Vector2 dirVec = new Vector2(vel.getDx(), vel.getDy());
 
+        Vector2 dirVec = new Vector2(vel.getDx(), vel.getDy());
         DirectionHelper.Direction direction = getDirection(dirVec);
         dir.setDirection(direction);
     }

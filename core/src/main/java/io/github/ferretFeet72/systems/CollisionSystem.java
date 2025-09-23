@@ -29,10 +29,24 @@ public class CollisionSystem  extends IteratingSystem {
             if (other == entity) continue; //skip self
             CollisionComponent otherCol = cm.get(other);
             if (!otherCol.isCollisionEnabled()) continue; //skip collison disabled
+            if (entity.getComponent(ShooterComponent.class) != null) { //if bullet
+                if (entity.getComponent(ShooterComponent.class).getEntity() == other) {//skip if bullet colliding with own shooter
+                    continue;
+                }
+
+            } else if(other.getComponent(ShooterComponent.class) != null) { //skip if shooter colliding with own bullet.
+                if (other.getComponent(ShooterComponent.class).getEntity() == entity) {
+                    continue;
+                }
+            }
 
 //            Handle collision
             if (!checkCollision(entity, other)) continue; //if no collision
             resolveCollision(entity, other); //handle position change
+            if (entity.getComponent(ShooterComponent.class) != null) { //if bullet
+//                destroy after registering collision
+                this.getEngine().removeEntity(entity);
+            }
 
             otherCol.setColliding(true);
 

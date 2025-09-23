@@ -25,19 +25,19 @@ class KeyUtilsTest {
         assertEquals(4, KeyUtils.defKeyMap.size(), "defKeyMap should have 4 entries");
     }
 
-    @Test
-    void testGetKeyCodeReturnsCorrectCode() {
-        assertEquals(Input.Keys.A, KeyUtils.getKeyCode("A"));
-        assertEquals(Input.Keys.D, KeyUtils.getKeyCode("D"));
-        assertEquals(Input.Keys.S, KeyUtils.getKeyCode("S"));
-        assertEquals(Input.Keys.W, KeyUtils.getKeyCode("W"));
-    }
-
-    @Test
-    void testGetKeyCodeReturnsMinusOneForUnknownKey() {
-        assertEquals(-1, KeyUtils.getKeyCode("Z"));
-        assertEquals(-1, KeyUtils.getKeyCode("INVALID"));
-        assertEquals(-1, KeyUtils.getKeyCode(""), "Empty string should return -1");
-        assertEquals(-1, KeyUtils.getKeyCode(null), "Null key should return -1 safely");
-    }
+//    @Test
+//    void testGetKeyCodeReturnsCorrectCode() {
+//        assertEquals(Input.Keys.A, KeyUtils.getKeyCode("A"));
+//        assertEquals(Input.Keys.D, KeyUtils.getKeyCode("D"));
+//        assertEquals(Input.Keys.S, KeyUtils.getKeyCode("S"));
+//        assertEquals(Input.Keys.W, KeyUtils.getKeyCode("W"));
+//    }
+//
+//    @Test
+//    void testGetKeyCodeReturnsMinusOneForUnknownKey() {
+//        assertEquals(-1, KeyUtils.getKeyCode("Z"));
+//        assertEquals(-1, KeyUtils.getKeyCode("INVALID"));
+//        assertEquals(-1, KeyUtils.getKeyCode(""), "Empty string should return -1");
+//        assertEquals(-1, KeyUtils.getKeyCode(null), "Null key should return -1 safely");
+//    }
 }

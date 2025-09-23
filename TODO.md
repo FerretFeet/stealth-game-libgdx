@@ -53,25 +53,18 @@
   - [ ] Enemies can emit a ranged projectile to target the player
   - [ ] Enemies can cause other nearby enemies to enter pursuit mode 
 - Projectile System
-  - [ ] When a button is push or a function is activated, a projectile is emitted by an entity
-    - [ ] The projectile travels in a straight line towards the target
-      - [ ] The projectile has working collision
-      - [ ] The projectile travels at a set speed towards the player
-      - [ ] The projectile disappears upon collision
-      create a new input, ensure it works with console log
-      creates a sprite
-      the sprite moves towards a target
-      - the sprite rotates depending on direction
-      the object registers collisions
-      the sprite disappears on collision
-        (after enemy creation)
-      the projectile causes a damage event? when colliding with a player or enemy
+  - [x] When a button is push or a function is activated, a projectile is emitted by an entity
+    - [x] The projectile travels in a straight line towards the target
+      - [x] The projectile has working collision
+      - [x] The projectile travels at a set speed towards the target
+  - [x] The projectile disappears upon collision
+  - [ ] the projectile causes a damage event? when colliding with a player or enemy
 - Attack System
   - [ ] When a function is activated, an entity determines if there is an entity with health in it's vicinity.
     - [ ] if so, lower the health value
     - [ ] if not, null
 - Player
-  - [ ] Can range attack
+  - [x] Can range attack
     - [ ] Attack one shot kills non-pursuit enemies
     - [ ] The attack two-shot kills pursuit enemies
       - (Half damage on pursuit enemies)

@@ -5,18 +5,23 @@ import com.badlogic.ashley.core.Entity;
 import com.badlogic.ashley.core.Family;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.math.Vector3;
 import io.github.ferretFeet72.components.InputComponent;
 import io.github.ferretFeet72.components.PlayerComponent;
+import io.github.ferretFeet72.components.ShotTargetComponent;
 import io.github.ferretFeet72.utils.GameResources;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import static io.github.ferretFeet72.utils.GameResources.camera;
+import static io.github.ferretFeet72.utils.GameResources.viewport;
 import static io.github.ferretFeet72.utils.keyBindings.PlayerActions.MOVE_UP;
 
 
 public class InputManager implements InputProcessor {
     private Map<Integer, PlayerActions> keyBinds = new HashMap<>();
+    private Map<Integer, PlayerActions> mouseBinds = new HashMap<>();
     Entity player = GameResources.engine.getEntitiesFor(Family.all(PlayerComponent.class, InputComponent.class).get()).first();
     ComponentMapper<InputComponent> im = ComponentMapper.getFor(InputComponent.class);
     InputComponent inputComponent = im.get(player);
@@ -25,7 +30,9 @@ public class InputManager implements InputProcessor {
     @Override
     public boolean keyDown(int i) {
         if(keyBinds.isEmpty()){
-            keyBinds = KeyBindingsLoader.loadKeyBinds(keyBinds);
+//            keyBinds = KeyBindingsLoader.loadKeyBinds(keyBinds);
+            KeyUtils.init();
+            keyBinds = KeyUtils.defKeyMap;
         }
         PlayerActions action = keyBinds.get(i);
         if (action != null) {
@@ -84,7 +91,23 @@ public class InputManager implements InputProcessor {
     }
 
     @Override
-    public boolean touchDown(int i, int i1, int i2, int i3) {
+    public boolean touchDown(int screenX, int screenY, int i2, int button) {
+        if (mouseBinds.isEmpty()){
+            KeyUtils.init();
+            mouseBinds = KeyUtils.defMouseMap;
+        }
+        Vector3 world = viewport.unproject(new Vector3(screenX, screenY, 0));
+        float x = world.x;
+        float y = world.y;
+        PlayerActions action = mouseBinds.get(button);
+        if (action != null) {
+            switch (action) {
+                case SHOOT:
+                    inputComponent.setShootPressed(true);
+                    player.add(new ShotTargetComponent(x, y));
+                    break;
+            }
+        }
         return false;
     }
 

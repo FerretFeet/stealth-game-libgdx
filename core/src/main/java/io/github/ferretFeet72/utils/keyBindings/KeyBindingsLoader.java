@@ -29,16 +29,21 @@ public class KeyBindingsLoader {
 //        fill hashmap with keycode-player_action pairs
         for (KeyBindingEntry binding : bindings.keyBinds) {
 //            Translate key string to key code
-            int keyCode = KeyUtils.getKeyCode(binding.key);
+            int keyCode = Integer.parseInt(binding.key);
 
 //            Match action to enum
             PlayerActions keyAction = null;
-            for (PlayerActions action : PlayerActions.values()) {
-                if (action.name().equalsIgnoreCase(binding.action)) {
-                    keyAction = action;
-                    break;
+            try {
+                keyAction = PlayerActions.valueOf(binding.action);
+            } catch (IllegalArgumentException e) {
+                for (PlayerActions action : PlayerActions.values()) {
+                    if (action.name().equalsIgnoreCase(binding.action)) {
+                        keyAction = action;
+                        break;
+                    }
                 }
             }
+
 //            input into table
             map.put(keyCode, keyAction);
         }

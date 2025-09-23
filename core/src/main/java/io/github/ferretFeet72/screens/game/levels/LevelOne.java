@@ -91,6 +91,7 @@ public class LevelOne implements Screen {
             0
         );
         camera.update();
+        GameResources.camera = camera;
 
         renderer = new OrthogonalTiledMapRenderer(map);
 
@@ -108,6 +109,7 @@ public class LevelOne implements Screen {
 //        add systems
         engine.addSystem(new RenderSystem());
         engine.addSystem(new PlayerControlSystem());
+        engine.addSystem(new ShootingSystem());
         engine.addSystem(new MovementSystem());
         engine.addSystem(new CollisionSystem());
         engine.addSystem(new InteractionSystem());

@@ -8,6 +8,8 @@ public class InputComponent implements Component {
     private boolean leftPressed;
     private boolean rightPressed;
     private boolean interactPressed;
+    private boolean shootPressed;
+    private boolean knockoutPressed;
 
 
     public InputComponent() {
@@ -16,6 +18,8 @@ public class InputComponent implements Component {
         this.leftPressed = false;
         this.rightPressed = false;
         this.interactPressed = false;
+        this.shootPressed = false;
+        this.knockoutPressed = false;
     }
 
     public boolean isUpPressed() {
@@ -56,5 +60,21 @@ public class InputComponent implements Component {
 
     public void setInteractPressed(boolean interactPressed) {
         this.interactPressed = interactPressed;
+    }
+
+    public boolean isShootPressed() {
+        return shootPressed;
+    }
+
+    public boolean isKnockoutPressed() {
+        return knockoutPressed;
+    }
+
+    public void setShootPressed(boolean shootPressed) {
+        this.shootPressed = shootPressed;
+    }
+
+    public void setKnockoutPressed(boolean knockoutPressed) {
+        this.knockoutPressed = knockoutPressed;
     }
 }

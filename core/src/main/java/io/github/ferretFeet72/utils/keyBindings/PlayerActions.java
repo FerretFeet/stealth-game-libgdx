@@ -3,5 +3,5 @@ package io.github.ferretFeet72.utils.keyBindings;
 
 public enum PlayerActions {
     MOVE_UP, MOVE_DOWN, MOVE_LEFT, MOVE_RIGHT,
-    INTERACT
+    INTERACT, SHOOT, KNOCKOUT
 }
